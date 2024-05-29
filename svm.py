@@ -1,14 +1,14 @@
 import streamlit as st
 import pandas as pd
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
-# Load the Breast Cancer dataset
-breast_cancer = load_breast_cancer()
-data = pd.DataFrame(data=breast_cancer.data, columns=breast_cancer.feature_names)
-data['target'] = breast_cancer.target
+# Load the Wine dataset
+wine = load_wine()
+data = pd.DataFrame(data=wine.data, columns=wine.feature_names)
+data['target'] = wine.target
 
 # Split the data into training and testing sets
 X = data.drop(columns='target')
@@ -20,25 +20,25 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Train the KNN classifier
-n_neighbors = 5
-knn = KNeighborsClassifier(n_neighbors=n_neighbors)
-knn.fit(X_train_scaled, y_train)
+# Train the SVM classifier
+svm = SVC(kernel='linear', C=1.0, random_state=42)
+svm.fit(X_train_scaled, y_train)
 
 # Title
-st.title("Breast Cancer Prediction using KNN")
+st.title("Wine Classification using SVM")
 
-# Explanation of Malignant and Benign
+# Explanation of Wine Classes
 st.write("""
-### Malignant vs Benign
-- **Malignant**: Cancerous and potentially dangerous
-- **Benign**: Non-cancerous and generally less dangerous
+### Wine Classes
+- **Class 0**: Class of wine 0
+- **Class 1**: Class of wine 1
+- **Class 2**: Class of wine 2
 """)
 
 # User input for predictions
 st.header("Input Features")
 user_input = {}
-for feature in breast_cancer.feature_names:
+for feature in wine.feature_names:
     user_input[feature] = st.number_input(feature, value=float(X_train[feature].mean()))
 
 # Convert user input to DataFrame
@@ -49,6 +49,6 @@ user_input_scaled = scaler.transform(user_input_df)
 
 # Predict button
 if st.button("Predict"):
-    user_prediction = knn.predict(user_input_scaled)
-    prediction_label = "Malignant" if user_prediction[0] == 0 else "Benign"
+    user_prediction = svm.predict(user_input_scaled)
+    prediction_label = f"Class {user_prediction[0]}"
     st.write(f"### Prediction: {prediction_label}")

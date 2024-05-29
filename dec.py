@@ -4,7 +4,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 
 # Load the dataset
-file_path = r"C:\Users\Asus\OneDrive\Desktop\decision tree.xlsx"
+file_path = r"C:\Users\Asus\Downloads\decision tree.xlsx"
 data = pd.read_excel(file_path)
 
 # Encode categorical variables

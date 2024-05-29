@@ -22,6 +22,10 @@ def main():
                 run_project("dec.py")
             elif selected_algorithm == "Random Forest":
                 run_project("rand.py")
+            elif selected_algorithm == "K-Nearest Neighbors (KNN)":
+                run_project("knn.py")
+            elif selected_algorithm == "Support Vector Machines (SVM)":
+                run_project("svm.py")
 
     elif learning_type == "Unsupervised Learning":
         st.subheader("Select an unsupervised learning algorithm:")
@@ -41,7 +45,7 @@ def main():
 
 def run_project(file_name):
     # Use subprocess to run the specified Python script containing the project
-    subprocess.run(["streamlit", "run", file_name], capture_output=True)
+    subprocess.run(["streamlit", "run", file_name])
 
 def display_algorithm_description(algorithm):
     # Display description of the selected unsupervised algorithm
