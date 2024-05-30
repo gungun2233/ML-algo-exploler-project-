@@ -1,56 +1,49 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Step 1: Load the Seeds Dataset
-@st.cache_data
-def load_data():
-    url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/00236/seeds_dataset.txt'
-    column_names = ['Area', 'Perimeter', 'Compactness', 'Length of kernel', 'Width of kernel', 'Asymmetry coefficient', 'Length of kernel groove', 'Target']
-    data = pd.read_csv(url, delim_whitespace=True, names=column_names)
-    return data
+# Set up the Streamlit page
+st.title('Customer Segmentation using K-means Clustering')
+st.write('This app segments customers based on their age and income.')
 
-data = load_data()
+# Input fields for customer data
+st.subheader('Enter Customer Data')
+ages = st.text_input('Enter ages (comma-separated)', '25,34,45,23,35,64,33,45,32,55')
+incomes = st.text_input('Enter incomes (comma-separated)', '50000,60000,80000,120000,30000,40000,70000,90000,60000,100000')
 
-# Display the first few rows of the dataset
-st.title("K-Means Clustering of Seeds Data")
-st.write("### Seeds Dataset")
-st.dataframe(data.head())
+# Convert input strings to lists
+age_list = [int(x) for x in ages.split(',')]
+income_list = [int(x) for x in incomes.split(',')]
 
-# Step 2: Preprocess the Data
-X = data.drop(columns='Target')
+# Create DataFrame from input data
+data = {'Age': age_list, 'Income': income_list}
+df = pd.DataFrame(data)
+
+# Display the data
+st.subheader('Customer Data')
+st.write(df)
+
+# Normalize the data
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+df_scaled = scaler.fit_transform(df)
 
-# Step 3: Perform K-Means Clustering
-# Allow users to select the number of clusters
-n_clusters = st.slider("Select Number of Clusters", 2, 10, 3)
-kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-y_kmeans = kmeans.fit_predict(X_scaled)
+# Slider to select number of clusters
+k = st.slider('Select number of clusters', 2, 5, 3)
 
-# Add the cluster labels to the original data
-data['Cluster'] = y_kmeans
+# Button to perform clustering
+if st.button('Perform Clustering'):
+    # Apply K-means clustering
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    df['Cluster'] = kmeans.fit_predict(df_scaled)
 
-# Step 4: Visualize the Results
-# Plotting the clusters for two dimensions (e.g., 'Area' vs. 'Perimeter')
-st.write("### Clustering Results")
-
-fig, ax = plt.subplots(figsize=(10, 7))
-colors = ['red', 'blue', 'green', 'purple', 'orange', 'brown', 'pink', 'gray', 'olive', 'cyan']
-
-for i in range(n_clusters):
-    ax.scatter(X_scaled[y_kmeans == i, 0], X_scaled[y_kmeans == i, 1], s=100, c=colors[i % len(colors)], label=f'Cluster {i + 1}')
-ax.set_title('K-Means Clustering of Seeds Data')
-ax.set_xlabel('Area')
-ax.set_ylabel('Perimeter')
-ax.legend()
-
-st.pyplot(fig)
-
-# Additional insights: displaying cluster centers
-st.write("### Cluster Centers")
-cluster_centers = scaler.inverse_transform(kmeans.cluster_centers_)
-cluster_centers_df = pd.DataFrame(cluster_centers, columns=X.columns)
-st.dataframe(cluster_centers_df)
+    # Visualize the clusters
+    st.subheader('Cluster Visualization')
+    fig, ax = plt.subplots()
+    sns.scatterplot(x='Age', y='Income', hue='Cluster', data=df, palette='viridis', ax=ax)
+    plt.xlabel('Age')
+    plt.ylabel('Income')
+    plt.title('Customer Segmentation')
+    st.pyplot(fig)

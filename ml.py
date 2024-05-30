@@ -35,22 +35,25 @@ def main():
             "DBSCAN (Density-Based Spatial Clustering of Applications with Noise)",
             "Principal Component Analysis (PCA)",
             "t-Distributed Stochastic Neighbor Embedding (t-SNE)",
-            "Anomaly Detection"
+           
         ]
         selected_algorithm = st.selectbox("Choose an Algorithm", unsupervised_algorithms)
         
-        # Display description of the selected unsupervised algorithm
-        if st.button("Show Description"):
-            display_algorithm_description(selected_algorithm)
-
+        # Run specific project based on selected algorithm
+        if st.button("Run Project"):
+            if selected_algorithm == "K-Means Clustering":
+                run_project("kmeans.py")
+            elif selected_algorithm == "Hierarchical Clustering":
+                run_project("heir.py")
+            elif selected_algorithm == "DBSCAN (Density-Based Spatial Clustering of Applications with Noise)":
+                run_project("dbscan.py")
+            elif selected_algorithm == "Principal Component Analysis (PCA)":
+                run_project("pca.py")  
+            elif selected_algorithm == "t-Distributed Stochastic Neighbor Embedding (t-SNE)":
+                run_project("tsne.py")
 def run_project(file_name):
     # Use subprocess to run the specified Python script containing the project
     subprocess.run(["streamlit", "run", file_name])
-
-def display_algorithm_description(algorithm):
-    # Display description of the selected unsupervised algorithm
-    st.subheader(f"Description of {algorithm}")
-    # Add your descriptions here
 
 if __name__ == "__main__":
     main()
