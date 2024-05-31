@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
 
 def display_matrix_order(matrix):
     order = len(matrix)
@@ -98,21 +97,6 @@ def main():
             try:
                 solutions = np.linalg.solve(coefficients, constants)
                 st.write(f"Solutions: {solutions}")
-
-                # Graphical Representation
-                st.subheader("Graphical Representation")
-                x = np.linspace(-10, 10, 100)
-                fig, ax = plt.subplots()
-
-                for coeff, const in zip(coefficients, constants):
-                    y = -coeff[0] / coeff[1] * x + const / coeff[1]
-                    ax.plot(x, y, label=f"{coeff[0]}x + {coeff[1]}y = {const}")
-
-                ax.set_xlabel("x")
-                ax.set_ylabel("y")
-                ax.legend()
-                st.pyplot(fig)
-
             except np.linalg.LinAlgError:
                 st.write("The system of equations has no solution or infinitely many solutions.")
 
