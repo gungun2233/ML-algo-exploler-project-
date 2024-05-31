@@ -2,4 +2,4 @@ streamlit
 numpy
 scikit-learn
 pandas
-r"C:\Users\Asus\Downloads\insurance.xlsx"
+C:\Users\Asus\Downloads\insurance.xlsx
