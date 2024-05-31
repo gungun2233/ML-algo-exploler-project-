@@ -3,8 +3,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 
 # Load the insurance dataset
-df = pd.read_excel(r"C:\Users\Asus\Downloads\insurance.xlsx", engine='openpyxl')
-# Train the Linear Regression Model
+df = pd.read_excel("insurance.xlsx", engine='openpyxl')
 reg = LinearRegression()
 X = df[['age']]  # Feature: age
 y = df['premium']  # Target: premium
