@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 
 # Load the insurance dataset
-df = pd.read_excel("insurance.xlsx")
+df = pd.read_excel(r"C:\Users\Asus\Downloads\insurance.xlsx")
 
 # Train the Linear Regression Model
 reg = LinearRegression()
