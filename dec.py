@@ -3,9 +3,15 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 
-# Load the dataset
-file_path = r"C:\Users\Asus\Downloads\decision tree.xlsx"
-data = pd.read_excel(file_path)
+data = {
+    'outlook': ['sunny', 'sunny', 'overcast', 'rainy', 'sunny', 'overcast', 'rainy', 'rainy', 'rainy', 'overcast', 'sunny', 'sunny'],
+    'humidity': ['high', 'high', 'high', 'high', 'normal', 'normal', 'high', 'normal', 'normal', 'high', 'high', 'normal'],
+    'windy': ['weak', 'strong', 'weak', 'weak', 'strong', 'weak', 'strong', 'weak', 'weak', 'strong', 'weak', 'strong'],
+    'play': ['no', 'no', 'yes', 'yes', 'no', 'yes', 'yes', 'no', 'yes', 'no', 'no', 'yes']
+}
+
+df = pd.DataFrame(data)
+
 
 # Encode categorical variables
 label_encoders = {}
