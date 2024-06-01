@@ -9,7 +9,7 @@ def main():
 
     if learning_type == "Supervised Learning":
         st.subheader("Select a supervised learning algorithm:")
-        supervised_algorithms = ["Linear Regression", "Logistic Regression", "Decision Trees", "Random Forest", "K-Nearest Neighbors (KNN)", "Support Vector Machines (SVM)"]
+        supervised_algorithms = ["Linear Regression", "Logistic Regression", "Random Forest", "K-Nearest Neighbors (KNN)", "Support Vector Machines (SVM)"]
         selected_algorithm = st.selectbox("Choose an Algorithm", supervised_algorithms)
         
         # Run specific project based on selected algorithm
@@ -18,8 +18,6 @@ def main():
                 run_project("app.py")
             elif selected_algorithm == "Logistic Regression":
                 run_project("new.py")
-            elif selected_algorithm == "Decision Trees":
-                run_project("dec.py")
             elif selected_algorithm == "Random Forest":
                 run_project("rand.py")
             elif selected_algorithm == "K-Nearest Neighbors (KNN)":

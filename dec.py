@@ -23,9 +23,9 @@ for col in categorical_columns:
 
 # Prepare features and target
 features_col = ['outlook', 'humidity', 'windy']
-X = data[features_col]
+X = data[features_col]  # Corrected: data instead of df
 
-y = data['play']
+y = data['play']  # Corrected: data instead of df
 
 # Create a Decision Tree Classifier
 classifier = DecisionTreeClassifier(criterion='gini')
