@@ -1,6 +1,5 @@
 import streamlit as st
 import subprocess
-import webbrowser
 
 def main():
     st.title("Machine Learning Algorithm Explorer")
@@ -19,9 +18,8 @@ def main():
         }
         selected_algorithm = st.selectbox("Choose an Algorithm", list(supervised_algorithms.keys()))
         
-        # Run specific project based on selected algorithm
-        if st.button("Run Project"):
-            open_url(supervised_algorithms[selected_algorithm])
+        # Display link to selected algorithm's Streamlit webpage
+        st.markdown(f"[Run {selected_algorithm} Project]({supervised_algorithms[selected_algorithm]})")
 
     elif learning_type == "Unsupervised Learning":
         st.subheader("Select an unsupervised learning algorithm:")
@@ -34,13 +32,8 @@ def main():
         }
         selected_algorithm = st.selectbox("Choose an Algorithm", list(unsupervised_algorithms.keys()))
         
-        # Run specific project based on selected algorithm
-        if st.button("Run Project"):
-            open_url(unsupervised_algorithms[selected_algorithm])
-
-def open_url(url):
-    # Open the specified URL in the default web browser
-    webbrowser.open_new_tab(url)
+        # Display link to selected algorithm's Streamlit webpage
+        st.markdown(f"[Run {selected_algorithm} Project]({unsupervised_algorithms[selected_algorithm]})")
 
 if __name__ == "__main__":
     main()
