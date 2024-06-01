@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 
+# Previously created DataFrame
 data = {
     'outlook': ['sunny', 'sunny', 'overcast', 'rainy', 'sunny', 'overcast', 'rainy', 'rainy', 'rainy', 'overcast', 'sunny', 'sunny'],
     'humidity': ['high', 'high', 'high', 'high', 'normal', 'normal', 'high', 'normal', 'normal', 'high', 'high', 'normal'],
@@ -12,18 +13,18 @@ data = {
 
 df = pd.DataFrame(data)
 
-
 # Encode categorical variables
 label_encoders = {}
 categorical_columns = ['outlook', 'humidity', 'windy', 'play']
 
 for col in categorical_columns:
     label_encoders[col] = LabelEncoder()
-    data[col] = label_encoders[col].fit_transform(data[col])
+    df[col] = label_encoders[col].fit_transform(df[col])
 
 # Prepare features and target
 features_col = ['outlook', 'humidity', 'windy']
 X = data[features_col]
+
 y = data['play']
 
 # Create a Decision Tree Classifier
