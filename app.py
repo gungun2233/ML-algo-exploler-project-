@@ -2,8 +2,12 @@ import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 
-# Load the insurance dataset
-df = pd.read_excel("insurance.xlsx", engine='openpyxl')
+data = {
+    'age': [25, 30, 35, 40, 45],
+    'premium': [18000, 32000, 42000, 47000, 55000]
+}
+
+df = pd.DataFrame(data)
 reg = LinearRegression()
 X = df[['age']]  # Feature: age
 y = df['premium']  # Target: premium
