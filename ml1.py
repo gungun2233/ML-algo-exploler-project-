@@ -1,5 +1,6 @@
 import streamlit as st
 import subprocess
+import webbrowser
 
 def main():
     st.title("Machine Learning Algorithm Explorer")
@@ -20,7 +21,7 @@ def main():
         
         # Run specific project based on selected algorithm
         if st.button("Run Project"):
-            run_project(selected_algorithm)
+            open_url(supervised_algorithms[selected_algorithm])
 
     elif learning_type == "Unsupervised Learning":
         st.subheader("Select an unsupervised learning algorithm:")
@@ -35,36 +36,11 @@ def main():
         
         # Run specific project based on selected algorithm
         if st.button("Run Project"):
-            run_project(selected_algorithm)
+            open_url(unsupervised_algorithms[selected_algorithm])
 
-    # Displaying link for the selected algorithm
-    if learning_type == "Supervised Learning":
-        st.markdown(f"[Link to Documentation]({supervised_algorithms[selected_algorithm]})")
-    elif learning_type == "Unsupervised Learning":
-        st.markdown(f"[Link to Documentation]({unsupervised_algorithms[selected_algorithm]})")
-
-def run_project(selected_algorithm):
-    # Run specific project based on the selected algorithm
-    if selected_algorithm == "Linear Regression":
-        subprocess.run(["streamlit", "run", "app.py"])
-    elif selected_algorithm == "Logistic Regression":
-        subprocess.run(["streamlit", "run", "new.py"])
-    elif selected_algorithm == "Random Forest":
-        subprocess.run(["streamlit", "run", "rand.py"])
-    elif selected_algorithm == "K-Nearest Neighbors (KNN)":
-        subprocess.run(["streamlit", "run", "knn.py"])
-    elif selected_algorithm == "Support Vector Machines (SVM)":
-        subprocess.run(["streamlit", "run", "svm.py"])
-    elif selected_algorithm == "K-Means Clustering":
-        subprocess.run(["streamlit", "run", "kmeans.py"])
-    elif selected_algorithm == "Hierarchical Clustering":
-        subprocess.run(["streamlit", "run", "heir.py"])
-    elif selected_algorithm == "DBSCAN (Density-Based Spatial Clustering of Applications with Noise)":
-        subprocess.run(["streamlit", "run", "dbscan.py"])
-    elif selected_algorithm == "Principal Component Analysis (PCA)":
-        subprocess.run(["streamlit", "run", "pca.py"])
-    elif selected_algorithm == "t-Distributed Stochastic Neighbor Embedding (t-SNE)":
-        subprocess.run(["streamlit", "run", "tsne.py"])
+def open_url(url):
+    # Open the specified URL in the default web browser
+    webbrowser.open_new_tab(url)
 
 if __name__ == "__main__":
     main()
